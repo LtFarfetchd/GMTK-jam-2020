@@ -8,7 +8,7 @@ public class CameraZoomController : MonoBehaviour
         STATIC
     }
     private State state;
-    private Vector2 cameraStart;
+    private Vector3 cameraStart;
     private Vector2 path;
     private Vector2 playerStart;
     private Vector2 playerTarget;
@@ -20,7 +20,7 @@ public class CameraZoomController : MonoBehaviour
     {
         this.playerStart = playerStart;
         this.playerTarget = playerTarget;
-        path = playerTarget - cameraStart;
+        path = playerTarget - (Vector2)cameraStart;
         state = State.ZOOMING;
     }
 
@@ -29,7 +29,7 @@ public class CameraZoomController : MonoBehaviour
     void Start()
     {
         state = State.STATIC;
-        cameraStart = house.transform.position;
+        cameraStart = transform.position;
     }
 
     void Update()
@@ -37,10 +37,13 @@ public class CameraZoomController : MonoBehaviour
         if (state == State.ZOOMING || state == State.RETURNING)
         {
             float movementProportion = 
-                Vector3.Distance(player.transform.position, playerTarget)
-                / Vector3.Distance(playerStart, playerTarget);
-            transform.position = cameraStart + movementProportion * path;
-            if ((Vector2)transform.position == (state == State.ZOOMING ? playerTarget : cameraStart))
+                Vector2.Distance(playerStart, (Vector2)player.transform.position)
+                / Vector2.Distance(playerStart, playerTarget);
+
+            Vector2 newPos = Vector2.Lerp((Vector2)cameraStart, playerTarget, movementProportion);
+            transform.position = new Vector3(newPos.x, newPos.y, cameraStart.z);
+
+            if ((Vector2)transform.position == (state == State.ZOOMING ? playerTarget : (Vector2)cameraStart))
                 state = (state == State.ZOOMING ? State.RETURNING : State.STATIC);
         }
     }
