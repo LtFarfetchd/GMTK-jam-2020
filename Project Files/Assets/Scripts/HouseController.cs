@@ -10,22 +10,41 @@ public class HouseController : MonoBehaviour
         BOTTOM_RIGHT
     }
     public float houseWidth;
-    private Dictionary<Room, Vector2> roomPositions;
+    private Dictionary<Room, Vector2> roomPositions = new Dictionary<Room, Vector2>();
+    private LinkedList<Room> roomPaths = new LinkedList<Room>();
     private float roomOffset;
 
     void Start()
     {
-        roomOffset = houseWidth / 2;
-        roomPositions.Add(Room.TOP_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y - roomOffset));
-        roomPositions.Add(Room.TOP_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y - roomOffset));
-        roomPositions.Add(Room.BOTTOM_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y + roomOffset));
-        roomPositions.Add(Room.BOTTOM_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y + roomOffset));
+        roomOffset = houseWidth / 4;
+
+        roomPositions.ChainAdd(Room.TOP_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y + roomOffset))
+            .ChainAdd(Room.TOP_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y + roomOffset))
+            .ChainAdd(Room.BOTTOM_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y - roomOffset))
+            .ChainAdd(Room.BOTTOM_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y - roomOffset));
+
+        roomPaths
+            .ChainAddLast(Room.TOP_LEFT)
+            .ChainAddLast(Room.TOP_RIGHT)
+            .ChainAddLast(Room.BOTTOM_RIGHT)
+            .ChainAddLast(Room.BOTTOM_LEFT);
     }
 
-    public Vector2 getRoomPosition(Room roomName)
+    public Vector2 GetRoomPosition(Room roomName) => roomPositions.GetDictValue(roomName);
+
+    public List<Room> GetPathBetweenRooms(Room origin, Room target)
     {
-        Vector2 buffer;
-        roomPositions.TryGetValue(roomName, out buffer);
-        return buffer;
+        List<Room> path = new List<Room>();
+        LinkedListNode<Room> roomNode = roomPaths.Find(origin);
+        if (roomNode.GetNextNode(true).Value == target)
+            path.Add(target);
+        else if (roomNode.GetNextNode(false).Value == target)
+            path.Add(target);
+        else
+        {
+            path.Add(roomNode.GetNextNode(true).Value);
+            path.Add(target);
+        } 
+        return path;
     }
 }
