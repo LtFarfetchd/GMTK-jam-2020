@@ -17,9 +17,11 @@ public class PlayerController : MonoBehaviour
     private Room currentRoom;
     private List<Room> currentPath;
     private State state;
+    private Rigidbody2D rb;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         houseController = (HouseController)house.GetComponent<MonoBehaviour>();
     }
 
@@ -35,7 +37,6 @@ public class PlayerController : MonoBehaviour
     {
         if (state == State.STATIONARY)
         {
-            // handle a request for movement
             if (Input.GetMouseButtonDown(0))
             {
                 Vector2 mousePos = Input.mousePosition;
@@ -56,13 +57,13 @@ public class PlayerController : MonoBehaviour
         if (state == State.MOVING)
         {
             int targetIndex = !currentPath.Contains(currentRoom) ? 0 : 1;
-
-            //actual moving is done here
+            Vector2 targetPos = houseController.GetRoomPosition(currentPath[targetIndex]);
+            rb.velocity = (targetPos - (Vector2)transform.position).normalized * playerSpeed * Time.deltaTime;
 
             if ((Vector2)transform.position == houseController.GetRoomPosition(currentPath[targetIndex]))
             {
                 currentRoom = currentPath[targetIndex];
-                if (targetIndex == currentPath.Count)
+                if (targetIndex == currentPath.Count - 1)
                     state = State.STATIONARY;
             }
             
