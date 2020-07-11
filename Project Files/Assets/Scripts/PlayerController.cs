@@ -6,19 +6,26 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject house;
     public GameObject sceneCamera;
+    public GameObject activitiesHandler;
     public float moveTime;
+    public float engageTime;
     private enum State
     {
         MOVING,
         STATIONARY,
-        INTERACTING
+        ENGAGING,
+        DISENGAGING,
+        ENGAGED
     }
     private HouseController houseController;
+    private CameraZoomController cameraZoomController;
+    private ActivitiesHandlerController ahc;
     private Room currentRoom;
     private List<Room> currentPath;
+    private ActivityController targetActivity;
     private State state;
     private Rigidbody2D rb;
-    private float moveTimeElapsed;
+    private float timeElapsed;
 
     void Start()
     {
@@ -26,14 +33,24 @@ public class PlayerController : MonoBehaviour
         state = State.STATIONARY;
         rb = GetComponent<Rigidbody2D>();
         houseController = (HouseController)house.GetComponent<MonoBehaviour>();
+        cameraZoomController = (CameraZoomController)sceneCamera.GetComponent<MonoBehaviour>();
+        ahc = (ActivitiesHandlerController)activitiesHandler.GetComponent<MonoBehaviour>();
     }
 
     private void InitiateMove(Room targetRoom)
     {
         if (targetRoom == currentRoom)
             return;
+        timeElapsed = 0f;
         currentPath = houseController.GetPathBetweenRooms(currentRoom, targetRoom);
         state = State.MOVING;
+    }
+
+    private void InitiateEngagement(ActivityController activity)
+    {
+        timeElapsed = 0f;
+        cameraZoomController.ZoomIn(transform.position, activity.GetEngagementPosition());
+        state = State.ENGAGING;
     }
 
     void Update()
@@ -55,29 +72,44 @@ public class PlayerController : MonoBehaviour
                 if (targetRoom != currentRoom)
                 {
                     InitiateMove(targetRoom);
-                    moveTimeElapsed = 0f;
+                }
+                else 
+                {
+                    targetActivity = ahc.SearchByPosition(currentRoom, mousePos);
+                    if (targetActivity != null)
+                    {
+                        InitiateEngagement(targetActivity);
+                    }
                 }
             }
         }
 
         if (state == State.MOVING)
         {
-            moveTimeElapsed += Time.deltaTime;
+            timeElapsed += Time.deltaTime;
             int targetIndex = !currentPath.Contains(currentRoom) ? 0 : 1;
             Vector2 targetPos = houseController.GetRoomPosition(currentPath[targetIndex]);
 
-            rb.MovePosition(Vector2.Lerp(houseController.GetRoomPosition(currentRoom), targetPos, moveTimeElapsed/moveTime));
+            rb.MovePosition(Vector2.Lerp(houseController.GetRoomPosition(currentRoom), targetPos, timeElapsed/moveTime));
 
-            if ((Vector2)transform.position == houseController.GetRoomPosition(currentPath[targetIndex]))
+            if ((Vector2)transform.position == targetPos)
             {
-                Debug.Log("Boo");
                 currentRoom = currentPath[targetIndex];
                 if (targetIndex == currentPath.Count - 1)
                     state = State.STATIONARY;
                 else
-                    moveTimeElapsed = 0f;
+                    timeElapsed = 0f;
             }
-            
+        }
+
+        if (state == State.ENGAGING)
+        {
+            timeElapsed += Time.deltaTime;
+            Vector2 targetPos = targetActivity.GetEngagementPosition();
+
+            rb.MovePosition(Vector2.Lerp(houseController.GetRoomPosition(currentRoom), targetPos, timeElapsed/engageTime));
+            if ((Vector2)transform.position == targetPos)
+                state = State.ENGAGED;
         }
     }
 }

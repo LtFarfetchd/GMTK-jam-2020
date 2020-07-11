@@ -2,25 +2,29 @@
 
 public class CameraZoomController : MonoBehaviour
 {
+    public GameObject player;
+    public GameObject house;
+    public Camera thisCamera;
+    public float targetSize;
+
     private enum State {
         ZOOMING,
         RETURNING,
         STATIC
     }
     private State state;
-    private Vector2 cameraStart;
+    private Vector3 startPosition;
+    private float startSize;
     private Vector2 path;
     private Vector2 playerStart;
     private Vector2 playerTarget;
     private float playerXTarget, playerYTarget;
-    public GameObject player;
-    public GameObject house;
 
     public void ZoomIn(Vector2 playerStart, Vector2 playerTarget) 
     {
         this.playerStart = playerStart;
         this.playerTarget = playerTarget;
-        path = playerTarget - cameraStart;
+        path = playerTarget - (Vector2)startPosition;
         state = State.ZOOMING;
     }
 
@@ -29,7 +33,8 @@ public class CameraZoomController : MonoBehaviour
     void Start()
     {
         state = State.STATIC;
-        cameraStart = house.transform.position;
+        startPosition = transform.position;
+        startSize = thisCamera.orthographicSize;
     }
 
     void Update()
@@ -37,10 +42,15 @@ public class CameraZoomController : MonoBehaviour
         if (state == State.ZOOMING || state == State.RETURNING)
         {
             float movementProportion = 
-                Vector3.Distance(player.transform.position, playerTarget)
-                / Vector3.Distance(playerStart, playerTarget);
-            transform.position = cameraStart + movementProportion * path;
-            if ((Vector2)transform.position == (state == State.ZOOMING ? playerTarget : cameraStart))
+                Vector2.Distance(playerStart, (Vector2)player.transform.position)
+                / Vector2.Distance(playerStart, playerTarget);
+
+            Vector2 newPos = Vector2.Lerp((Vector2)startPosition, playerTarget, movementProportion);
+            transform.position = new Vector3(newPos.x, newPos.y, startPosition.z);
+
+            thisCamera.orthographicSize = Mathf.Lerp(startSize, targetSize, movementProportion);
+
+            if ((Vector2)transform.position == (state == State.ZOOMING ? playerTarget : (Vector2)startPosition))
                 state = (state == State.ZOOMING ? State.RETURNING : State.STATIC);
         }
     }
