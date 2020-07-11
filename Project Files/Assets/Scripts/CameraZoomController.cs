@@ -20,7 +20,7 @@ public class CameraZoomController : MonoBehaviour
     private Vector2 playerTarget;
     private float playerXTarget, playerYTarget;
 
-    public void ZoomIn(Vector2 playerStart, Vector2 playerTarget) 
+    public void StartZoom(Vector2 playerStart, Vector2 playerTarget) 
     {
         this.playerStart = playerStart;
         this.playerTarget = playerTarget;
@@ -28,7 +28,7 @@ public class CameraZoomController : MonoBehaviour
         state = State.ZOOMING;
     }
 
-    public void ZoomOut() => this.state = State.RETURNING;
+    public void StopZoom() => this.state = State.RETURNING;
 
     void Start()
     {
