@@ -18,10 +18,10 @@ public class HouseController : MonoBehaviour
     {
         roomOffset = houseWidth / 4;
 
-        roomPositions.ChainAdd(Room.TOP_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y - roomOffset))
-            .ChainAdd(Room.TOP_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y - roomOffset))
-            .ChainAdd(Room.BOTTOM_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y + roomOffset))
-            .ChainAdd(Room.BOTTOM_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y + roomOffset));
+        roomPositions.ChainAdd(Room.TOP_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y + roomOffset))
+            .ChainAdd(Room.TOP_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y + roomOffset))
+            .ChainAdd(Room.BOTTOM_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y - roomOffset))
+            .ChainAdd(Room.BOTTOM_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y - roomOffset));
 
         roomPaths
             .ChainAddLast(Room.TOP_LEFT)
@@ -42,7 +42,7 @@ public class HouseController : MonoBehaviour
             path.Add(target);
         else
         {
-            path.Add(roomNode.Next.Value);
+            path.Add(roomNode.GetNextNode(true).Value);
             path.Add(target);
         } 
         return path;

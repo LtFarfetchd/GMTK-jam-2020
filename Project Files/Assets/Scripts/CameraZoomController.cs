@@ -28,6 +28,7 @@ public class CameraZoomController : MonoBehaviour
 
     void Start()
     {
+        state = State.STATIC;
         cameraStart = house.transform.position;
     }
 
