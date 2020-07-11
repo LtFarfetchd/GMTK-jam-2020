@@ -16,7 +16,7 @@ public class HouseController : MonoBehaviour
 
     void Start()
     {
-        roomOffset = houseWidth / 2;
+        roomOffset = houseWidth / 4;
 
         roomPositions.ChainAdd(Room.TOP_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y - roomOffset))
             .ChainAdd(Room.TOP_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y - roomOffset))

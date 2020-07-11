@@ -315,6 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   house: {fileID: 1964646452}
   sceneCamera: {fileID: 519420028}
+  playerSpeed: 4
 --- !u!1 &1964646452
 GameObject:
   m_ObjectHideFlags: 0
