@@ -49,8 +49,14 @@ public class PlayerController : MonoBehaviour
     private void InitiateEngagement(ActivityController activity)
     {
         timeElapsed = 0f;
-        cameraZoomController.ZoomIn(transform.position, activity.GetEngagementPosition());
+        cameraZoomController.StartZoom(transform.position, activity.GetEngagementPosition());
         state = State.ENGAGING;
+    }
+
+    private void InitiateDisengagement()
+    {
+        timeElapsed = 0f;
+        state = State.DISENGAGING;
     }
 
     void Update()
@@ -102,14 +108,34 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (state == State.ENGAGING)
+        if (state == State.ENGAGING || state == State.DISENGAGING)
         {
+            bool engaging = state == State.ENGAGING;
             timeElapsed += Time.deltaTime;
             Vector2 targetPos = targetActivity.GetEngagementPosition();
+            Vector2 roomPos = houseController.GetRoomPosition(currentRoom);
 
-            rb.MovePosition(Vector2.Lerp(houseController.GetRoomPosition(currentRoom), targetPos, timeElapsed/engageTime));
-            if ((Vector2)transform.position == targetPos)
-                state = State.ENGAGED;
+            Vector2 newPos = Vector2.Lerp(roomPos, targetPos, 
+                engaging ? timeElapsed/engageTime : 1 - timeElapsed/engageTime);
+            rb.MovePosition(newPos);
+
+            if ((Vector2)transform.position == (engaging ? targetPos : roomPos))
+            {
+                state = engaging ? State.ENGAGED : State.STATIONARY;
+                if (state == State.DISENGAGING)
+                    cameraZoomController.StopZoom();
+            }
+        }
+
+        if (state == State.ENGAGED)
+        {
+            // placeholder disengagement trigger
+            if (Input.GetMouseButtonDown(0))
+            {
+                InitiateDisengagement();
+            }
+
+            // handle minigame here
         }
     }
 }
