@@ -27,7 +27,7 @@ public class BeerPongHandler : MonoBehaviour
         float thisy = this.transform.position.y;
         float cupoffset = 0.5f;
         background.transform.position = new Vector3(thisx, thisy, background.transform.position.z);
-        hand.transform.position = new Vector3(thisx - 1.55f, thisy + 0.15f, hand.transform.position.z);
+        hand.transform.position = new Vector3(thisx - 1.55f, thisy, hand.transform.position.z);
         cupback.transform.position = new Vector3(thisx, thisy + cupoffset, cupback.transform.position.z);
         cupfront.transform.position = new Vector3(thisx, thisy + cupoffset, cupfront.transform.position.z);
         ball.transform.position = new Vector3(10, 10, -6);
@@ -98,6 +98,7 @@ public class BeerPongHandler : MonoBehaviour
 
         if (animationStart <= 0 && ball.transform.position.y <= cupback.transform.position.y)
         {
+            Awake();
             playerController.InitiateDisengagement();
         }
         animationStart -= animationChange;
