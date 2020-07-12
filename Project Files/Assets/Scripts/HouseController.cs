@@ -78,9 +78,7 @@ public class HouseController : MonoBehaviour
                 foreach (RoomStat roomStat in roomStatsList)
                 {
                     if (Time.time > roomStartTimes[i])
-                    {
-                    Debug.Log(i + " | " + (Room)i);
-                        roomStat.IncreaseValue(gaugeMaximum, gaugeIncreaseRate); }
+                        roomStat.IncreaseValue(gaugeMaximum, gaugeIncreaseRate);
 
                     if (roomStat.value >= gaugeMaximum * ((float)gaugeWarningPercentage/100))
                         InitiateActivityWarning((Room)i, roomStat.variety);

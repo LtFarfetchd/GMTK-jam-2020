@@ -524,8 +524,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activitiesHandler: {fileID: 1132014190}
-  widthInWorldUnits: 24
-  heightInWorldUnits: 48
+  widthInWorldUnits: 0.24
+  heightInWorldUnits: 0.48
   room: 2
   engagementPosition: {x: 0.72, y: -1.32}
   type: 3
@@ -1396,8 +1396,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activitiesHandler: {fileID: 1132014190}
-  widthInWorldUnits: 16
-  heightInWorldUnits: 24
+  widthInWorldUnits: 0.16
+  heightInWorldUnits: 0.24
   room: 1
   engagementPosition: {x: 2.08, y: 2.4}
   type: 2
