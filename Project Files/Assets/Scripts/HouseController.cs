@@ -9,10 +9,33 @@ public class HouseController : MonoBehaviour
         BOTTOM_LEFT,
         BOTTOM_RIGHT
     }
+
+    public enum RoomVariety {
+        OBLIGATION,
+        PROBLEM
+    }
+
+    public struct RoomStat {
+        public RoomVariety variety;
+        public float value;
+        public RoomStat(RoomVariety variety)
+        {
+            this.variety = variety;
+            value = 0f;
+        }
+        public void IncreaseValue(float amount) => value += amount;
+    }
+
     public float houseWidth;
+    public float[] roomStartTimes = new float[4];
+    public float gaugeIncreaseRate = 2f;
+    public float gaugeIncreaseAcceleration = 0.00025f;
+
     private Dictionary<Room, Vector2> roomPositions = new Dictionary<Room, Vector2>();
+    private Dictionary<Room, RoomStat> roomStats = new Dictionary<Room, RoomStat>();
     private LinkedList<Room> roomPaths = new LinkedList<Room>();
     private float roomOffset;
+    private int roomValueSecondsBetweenIncreases = 5;
 
     void Start()
     {
@@ -28,6 +51,25 @@ public class HouseController : MonoBehaviour
             .ChainAddLast(Room.TOP_RIGHT)
             .ChainAddLast(Room.BOTTOM_RIGHT)
             .ChainAddLast(Room.BOTTOM_LEFT);
+        
+        roomStats.ChainAdd(Room.TOP_LEFT, new RoomStat(RoomVariety.OBLIGATION))
+            .ChainAdd(Room.TOP_RIGHT, new RoomStat(RoomVariety.OBLIGATION))
+            .ChainAdd(Room.BOTTOM_LEFT, new RoomStat(RoomVariety.PROBLEM))
+            .ChainAdd(Room.BOTTOM_RIGHT, new RoomStat(RoomVariety.PROBLEM));
+    }
+
+    void Update()
+    {
+        gaugeIncreaseRate += gaugeIncreaseAcceleration;
+        if (Time.time > 0 && Time.time.IsApproximatelyDivisibleBy(roomValueSecondsBetweenIncreases, Time.deltaTime))
+        {
+            Debug.Log(Time.time);
+            for (int i = 0; i < roomStartTimes.Length; i++)
+            {
+                if (Time.time > roomStartTimes[i])
+                    roomStats[(Room)i].IncreaseValue(gaugeIncreaseRate); 
+            }
+        }   
     }
 
     public Vector2 GetRoomPosition(Room roomName) => roomPositions.GetDictValue(roomName);

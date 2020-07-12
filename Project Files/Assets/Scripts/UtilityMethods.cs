@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public static class UtilityMethods
 {
@@ -22,5 +23,13 @@ public static class UtilityMethods
     {
         list.AddLast(value);
         return list;
+    }
+
+    public static bool IsApproximatelyDivisibleBy(this float subject, int divisor, float errorMargin)
+    {
+        if (Mathf.Abs((float)((int)subject) - subject) <= errorMargin)
+            if ((int)subject % divisor == 0)
+                return true;
+        return false;
     }
 }

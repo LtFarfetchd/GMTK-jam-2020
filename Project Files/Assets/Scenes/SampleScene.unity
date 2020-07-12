@@ -480,6 +480,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   houseWidth: 6.4
+  roomStartTimes:
+  - 5
+  - 10
+  - 12.5
+  - 7.5
+  gaugeIncreaseRate: 2
 --- !u!1 &2095760617
 GameObject:
   m_ObjectHideFlags: 0
