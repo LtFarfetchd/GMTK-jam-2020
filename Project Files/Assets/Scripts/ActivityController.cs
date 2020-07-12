@@ -13,6 +13,7 @@ public class ActivityController : MonoBehaviour
     public Vector2 engagementPosition;
     public ActivityType type;
     public ActivityVariety variety;
+    public GameObject warning;
 
     private ActivitiesHandlerController ahc;
     private bool hasWarning = false;
@@ -21,19 +22,17 @@ public class ActivityController : MonoBehaviour
     {
         ahc = (ActivitiesHandlerController)activitiesHandler.GetComponent<MonoBehaviour>();
         ahc.ReportBounds(this, type, new ActivityBounds(boundsTopLeft, boundsBottomRight));
+        warning.transform.position = transform.position;
+        warning.SetActive(false);
     }
 
     public Vector2 GetEngagementPosition() => engagementPosition;
     public Room GetRoom() => room;
     public ActivityVariety GetVariety() => variety;
 
-    public void InitiateWarning()
+    public void ToggleWarning(bool isWarning)
     {
-        hasWarning = true;
-    }
-
-    public void StopWarning()
-    {
-        hasWarning = false;
+        hasWarning = isWarning;
+        warning.SetActive(isWarning);
     }
 }

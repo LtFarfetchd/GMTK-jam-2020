@@ -11,7 +11,7 @@ public class HouseController : MonoBehaviour
         BOTTOM_RIGHT
     }
 
-    public struct RoomStat {
+    public class RoomStat {
         public ActivityVariety variety;
         public float value;
         public RoomStat(ActivityVariety variety)
@@ -45,7 +45,7 @@ public class HouseController : MonoBehaviour
 
     void Start()
     {
-        ahc = (ActivitiesHandlerController)activitiesHandler.GetComponent<MonoBehaviour>();
+        ahc = (ActivitiesHandlerController)(activitiesHandler.GetComponent<MonoBehaviour>());
         roomOffset = houseWidth / 4;
 
         roomPositions.ChainAdd(Room.TOP_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y + roomOffset))
@@ -59,10 +59,10 @@ public class HouseController : MonoBehaviour
             .ChainAddLast(Room.BOTTOM_RIGHT)
             .ChainAddLast(Room.BOTTOM_LEFT);
 
-        roomStats.ChainAdd(Room.TOP_LEFT, new List<RoomStat> {new RoomStat(ActivityVariety.OBLIGATION)})
-            .ChainAdd(Room.TOP_RIGHT, new List<RoomStat> {new RoomStat(ActivityVariety.OBLIGATION)})
-            .ChainAdd(Room.BOTTOM_LEFT, new List<RoomStat> {new RoomStat(ActivityVariety.PROBLEM)})
-            .ChainAdd(Room.BOTTOM_RIGHT, new List<RoomStat> {new RoomStat(ActivityVariety.PROBLEM)});
+        roomStats.ChainAdd(Room.TOP_LEFT, new List<RoomStat>(){new RoomStat(ActivityVariety.OBLIGATION)})
+            .ChainAdd(Room.TOP_RIGHT, new List<RoomStat>(){new RoomStat(ActivityVariety.OBLIGATION)})
+            .ChainAdd(Room.BOTTOM_LEFT, new List<RoomStat>(){new RoomStat(ActivityVariety.PROBLEM)})
+            .ChainAdd(Room.BOTTOM_RIGHT, new List<RoomStat>(){new RoomStat(ActivityVariety.PROBLEM)});
     }
 
     void Update()
@@ -70,7 +70,6 @@ public class HouseController : MonoBehaviour
         gaugeIncreaseRate += gaugeIncreaseAcceleration;
         if (Time.time > 0 && Time.time.IsApproximatelyDivisibleBy(roomValueSecondsBetweenIncreases, Time.deltaTime))
         {
-            Debug.Log(Time.time);
             for (int i = 0; i < roomStartTimes.Length; i++)
             {
                 List<RoomStat> roomStatsList = roomStats.GetDictValue((Room)i);
@@ -79,7 +78,7 @@ public class HouseController : MonoBehaviour
                     if (Time.time > roomStartTimes[i])
                         roomStat.IncreaseValue(gaugeMaximum, gaugeIncreaseRate); 
 
-                    if (roomStat.value >= gaugeMaximum * (gaugeWarningPercentage/100))
+                    if (roomStat.value >= gaugeMaximum * ((float)gaugeWarningPercentage/100))
                         InitiateActivityWarning((Room)i, roomStat.variety);
                 }
             }
@@ -91,7 +90,7 @@ public class HouseController : MonoBehaviour
         ActivityController activity = ahc.SearchByVariety(room, variety);
         if (activity == null)
             return;
-        activity.InitiateWarning();
+        activity.ToggleWarning(true);
     }
 
     public Vector2 GetRoomPosition(Room roomName) => roomPositions.GetDictValue(roomName);
