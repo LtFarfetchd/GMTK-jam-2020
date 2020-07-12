@@ -2408,7 +2408,7 @@ MonoBehaviour:
   - 10
   gaugeMaximum: 20
   gaugeIncreaseRate: 0.25
-  gaugeIncreaseAcceleration: 0.00025
+  gaugeIncreaseAcceleration: 0.000025
   gaugeWarningPercentage: 50
 --- !u!1 &1969540010
 GameObject:
