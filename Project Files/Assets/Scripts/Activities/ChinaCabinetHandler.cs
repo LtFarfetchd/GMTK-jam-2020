@@ -16,6 +16,7 @@ public class ChinaCabinetHandler : MonoBehaviour
 
     void OnAwake()
     {
+        hands.transform.position = new Vector3(0, this.transform.position.y, hands.transform.position.z);
         // reset the game's state here and prepare to start
     }
 

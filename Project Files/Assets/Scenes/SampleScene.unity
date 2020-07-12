@@ -2220,8 +2220,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 659681834}
   china: {fileID: 0}
-  hands: {fileID: 0}
-  sceneCamera: {fileID: 0}
+  hands: {fileID: 1793478446}
+  sceneCamera: {fileID: 519420028}
 --- !u!4 &1788734274
 Transform:
   m_ObjectHideFlags: 0
