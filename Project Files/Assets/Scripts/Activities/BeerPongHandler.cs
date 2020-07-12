@@ -16,7 +16,7 @@ public class BeerPongHandler : MonoBehaviour
         playerController = (PlayerController)player.GetComponent<MonoBehaviour>();
     }
 
-    void OnAwake()
+    void Awake()
     {
         throwDistance = 0f;
         throwSpeed = 0.1f;
@@ -33,7 +33,7 @@ public class BeerPongHandler : MonoBehaviour
             }
             else
             {
-                LoseAnimation(false);
+                LoseAnimation();
             }
         }
         // placeholder disengagement. The game should determine when to disengage according to game rules
@@ -49,17 +49,19 @@ public class BeerPongHandler : MonoBehaviour
         else
         {
             throwDistance = throwMax;
-            LoseAnimation(true);
+            LoseAnimation();
         }
     }
 
     private void WinAnimation()
     {
+        //animation
         playerController.InitiateDisengagement();
     }
 
-    private void LoseAnimation(bool toofar)
+    private void LoseAnimation()
     {
-        OnAwake();
+        //animation
+        Awake();
     }
 }
