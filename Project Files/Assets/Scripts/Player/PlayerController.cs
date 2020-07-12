@@ -54,10 +54,14 @@ public class PlayerController : MonoBehaviour
         state = State.MOVING;
     }
 
-    private void InitiateEngagement(ActivityController activity)
+    private void InitiateEngagement()
     {
         timeElapsed = 0f;
-        cameraZoomController.StartZoom(transform.position, activity.GetEngagementPosition());
+        cameraZoomController.StartZoom(transform.position, targetActivity.GetEngagementPosition());
+        movementDirection = GetMovementDirection(
+            houseController.GetRoomPosition(currentRoom), targetActivity.engagementPosition
+        );
+        animator.SetBool(movementDirection, true);
         state = State.ENGAGING;
     }
 
@@ -66,6 +70,10 @@ public class PlayerController : MonoBehaviour
         timeElapsed = 0f;
         ahc.GetActivityHandlerObject(targetActivity.type).SetActive(false);
         miniGameScreen.transform.position = new Vector3(0, 6, -2);
+        movementDirection = GetMovementDirection(
+            targetActivity.engagementPosition, houseController.GetRoomPosition(currentRoom)
+        );
+        animator.SetBool(movementDirection, true);
         state = State.DISENGAGING;
     }
 
@@ -94,7 +102,7 @@ public class PlayerController : MonoBehaviour
                     targetActivity = ahc.SearchByPosition(currentRoom, mousePos);
                     if (targetActivity != null)
                     {
-                        InitiateEngagement(targetActivity);
+                        InitiateEngagement();
                     }
                 }
             }
@@ -142,6 +150,7 @@ public class PlayerController : MonoBehaviour
 
             if ((Vector2)transform.position == (engaging ? targetPos : roomPos))
             {
+                animator.SetBool(movementDirection, false);
                 state = engaging ? State.ENGAGED : State.STATIONARY;
                 if (state == State.DISENGAGING)
                     cameraZoomController.StopZoom();
