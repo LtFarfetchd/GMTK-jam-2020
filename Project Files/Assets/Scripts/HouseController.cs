@@ -1,14 +1,16 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 using ActivityVariety = ActivitiesHandlerController.ActivityVariety;
+using StatLevel = HUDController.StatLevel;
 
 public class HouseController : MonoBehaviour
 {
     public enum Room {
         TOP_LEFT,
         TOP_RIGHT,
-        BOTTOM_LEFT,
-        BOTTOM_RIGHT
+        BOTTOM_RIGHT,
+        BOTTOM_LEFT
     }
 
     public class RoomStat {
@@ -76,7 +78,7 @@ public class HouseController : MonoBehaviour
                 foreach (RoomStat roomStat in roomStatsList)
                 {
                     if (Time.time > roomStartTimes[i])
-                        roomStat.IncreaseValue(gaugeMaximum, gaugeIncreaseRate); 
+                        roomStat.IncreaseValue(gaugeMaximum, gaugeIncreaseRate);
 
                     if (roomStat.value >= gaugeMaximum * ((float)gaugeWarningPercentage/100))
                         InitiateActivityWarning((Room)i, roomStat.variety);
@@ -93,6 +95,7 @@ public class HouseController : MonoBehaviour
         activity.ToggleWarning(true);
     }
 
+    public float GetRoomGaugeMaximum() => gaugeMaximum;
     public Vector2 GetRoomPosition(Room roomName) => roomPositions.GetDictValue(roomName);
 
     public List<Room> GetPathBetweenRooms(Room origin, Room target)
@@ -109,5 +112,22 @@ public class HouseController : MonoBehaviour
             path.Add(target);
         } 
         return path;
+    }
+
+    public StatLevel GetTotalStatLevel(ActivityVariety statVariety)
+    {
+        float total = 0f;
+        int activityCount = 0;
+        foreach (Room room in Enum.GetValues(typeof(Room)))
+        {
+            List<RoomStat> roomActivityStats = roomStats.GetDictValue(room);
+            foreach (RoomStat stat in roomActivityStats)
+                if (stat.variety == statVariety)
+                {
+                    activityCount += roomActivityStats.Count;
+                    total += stat.value;
+                }
+        }
+        return new StatLevel(statVariety, total, activityCount);
     }
 }

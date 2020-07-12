@@ -14,7 +14,9 @@ public class ActivitiesHandlerController : MonoBehaviour
     public enum ActivityType 
     {
         BEER_PONG,
-        CHINA_CABINET
+        CHINA_CABINET,
+        KEG_STAND,
+        BATHROOM
     }
 
     public struct ActivityBounds
@@ -38,24 +40,28 @@ public class ActivitiesHandlerController : MonoBehaviour
     
     public ActivityController SearchByPosition(Room targetRoom, Vector2 position)
     {
-        ActivityBounds candidateBounds = activityLocations.Keys.Where(
+        ActivityBounds[] candidateBounds = activityLocations.Keys.Where(
             bounds => 
                 bounds.topLeft.x <= position.x
                 && bounds.topLeft.y >= position.y
                 && bounds.bottomRight.x >= position.x
                 && bounds.bottomRight.y <= position.y
                 && activities.GetDictValue(activityLocations.GetDictValue(bounds)).GetRoom() == targetRoom
-        ).FirstOrDefault();
-        return activities.GetDictValue(activityLocations.GetDictValue(candidateBounds));
+        ).ToArray();
+        return candidateBounds.Length == 0 
+            ? null 
+            : activities.GetDictValue(activityLocations.GetDictValue(candidateBounds[0]));
     } 
 
     public ActivityController SearchByVariety(Room targetRoom, ActivityVariety targetVariety)
     {
-        ActivityType candidateType = activities.Keys.Where(
+        ActivityType[] candidateTypes = activities.Keys.Where(
             type => 
                 activities.GetDictValue(type).GetVariety() == targetVariety
                 && activities.GetDictValue(type).GetRoom() == targetRoom
-        ).FirstOrDefault();
-        return activities.GetDictValue(candidateType);
+        ).ToArray();
+        return candidateTypes.Length == 0
+            ? null
+            : activities.GetDictValue(candidateTypes[0]);
     }
 }
