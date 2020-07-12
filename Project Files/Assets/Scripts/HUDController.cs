@@ -14,6 +14,10 @@ public class HUDController : MonoBehaviour
         public int activityCount;
     }
     public GameObject house;
+    public GameObject noiseGaugeFill;
+    public GameObject partyGaugeFill;
+    public int maxGaugeFillScale = 242;
+
     private HouseController houseController;
     public float noisiness = 0f;
     
@@ -30,7 +34,27 @@ public class HUDController : MonoBehaviour
             houseController.GetRoomGaugeMaximum() * (problemLevel.activityCount + obligationLevel.activityCount);
         float currentLevel = problemLevel.level + obligationLevel.level;
         noisiness = (currentLevel/maximumLevel);
+
+        noiseGaugeFill.transform.localScale = new Vector3(
+            1,
+            problemLevel.level / (houseController.GetRoomGaugeMaximum() * problemLevel.activityCount) * maxGaugeFillScale ,
+            1
+        );
+
+        partyGaugeFill.transform.localScale = new Vector3(
+            1,
+            obligationLevel.level / (houseController.GetRoomGaugeMaximum() * obligationLevel.activityCount) * maxGaugeFillScale ,
+            1
+        );
+
+        if ((int)noisiness == 1)
+            EndGame();
     }
 
     public int GetNoisiness() => (int)(noisiness * 100);
+
+    private void EndGame()
+    {
+        Debug.Log("Game Over");
+    }
 }

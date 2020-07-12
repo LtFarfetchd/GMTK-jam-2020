@@ -43,7 +43,7 @@ public class HouseController : MonoBehaviour
     private LinkedList<Room> roomPaths = new LinkedList<Room>();
     private ActivitiesHandlerController ahc;
     private float roomOffset;
-    private int roomValueSecondsBetweenIncreases = 5;
+    private int roomValueSecondsBetweenIncreases = 1;
 
     void Start()
     {
