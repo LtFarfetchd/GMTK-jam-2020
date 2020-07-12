@@ -151,6 +151,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 659681834}
+  hand: {fileID: 1918204354}
+  ball: {fileID: 1660128893}
+  cupback: {fileID: 1838554400}
+  cupfront: {fileID: 1664678606}
+  background: {fileID: 820661907}
 --- !u!4 &44674828
 Transform:
   m_ObjectHideFlags: 0
@@ -159,9 +164,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44674826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43285573, y: 0.033806354, z: -2}
+  m_LocalPosition: {x: -0.43285573, y: 0.033806354, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 820661909}
+  - {fileID: 1664678608}
+  - {fileID: 1838554402}
+  - {fileID: 1660128895}
+  - {fileID: 1918204356}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -435,7 +445,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433029406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 6, z: -2}
+  m_LocalPosition: {x: -0, y: 6, z: -9}
   m_LocalScale: {x: 0.28, y: 0.28, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

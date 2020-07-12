@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BeerPongHandler : MonoBehaviour
 {
-    public GameObject player;
+    public GameObject player, hand, ball, cupback, cupfront, background;
     private PlayerController playerController;
     private float throwDistance = 0f;
     private float throwSpeed = 0.1f;
@@ -20,6 +20,13 @@ public class BeerPongHandler : MonoBehaviour
     {
         throwDistance = 0f;
         throwSpeed = 0.1f;
+        float thisx = this.transform.position.x;
+        float thisy = this.transform.position.y;
+        float cupoffset = 0.5f;
+        background.transform.position = new Vector3(thisx, thisy, background.transform.position.z);
+        hand.transform.position = new Vector3(thisx - 1.55f, thisy + 0.15f, hand.transform.position.z);
+        cupback.transform.position = new Vector3(thisx, thisy + cupoffset, cupback.transform.position.z);
+        cupfront.transform.position = new Vector3(thisx, thisy + cupoffset, cupfront.transform.position.z);
         // reset the game's state here and prepare to start
     }
 

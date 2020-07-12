@@ -164,7 +164,7 @@ public class PlayerController : MonoBehaviour
             {
                 minigameHandler.SetActive(true);            
                 miniGameScreen.transform.position = new Vector3(
-                    sceneCamera.transform.position.x, sceneCamera.transform.position.y, this.transform.position.z
+                    sceneCamera.transform.position.x, sceneCamera.transform.position.y, miniGameScreen.transform.position.z
                 );
             }
         }
