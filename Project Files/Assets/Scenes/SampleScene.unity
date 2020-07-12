@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 433029408}
   - component: {fileID: 433029407}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: minigamescreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,6 +402,7 @@ MonoBehaviour:
   activitiesHandler: {fileID: 1132014190}
   moveTime: 1.5
   engageTime: 2
+  miniGameScreen: {fileID: 433029406}
 --- !u!50 &659681838
 Rigidbody2D:
   serializedVersion: 4
