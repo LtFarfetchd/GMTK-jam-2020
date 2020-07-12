@@ -34,6 +34,18 @@ public class HUDController : MonoBehaviour
             houseController.GetRoomGaugeMaximum() * (problemLevel.activityCount + obligationLevel.activityCount);
         float currentLevel = problemLevel.level + obligationLevel.level;
         noisiness = (currentLevel/maximumLevel);
+
+        noiseGaugeFill.transform.localScale = new Vector3(
+            1,
+            problemLevel.level / (houseController.GetRoomGaugeMaximum() * problemLevel.activityCount) * maxGaugeFillScale ,
+            1
+        );
+
+        partyGaugeFill.transform.localScale = new Vector3(
+            1,
+            obligationLevel.level / (houseController.GetRoomGaugeMaximum() * obligationLevel.activityCount) * maxGaugeFillScale ,
+            1
+        );
     }
 
     public int GetNoisiness() => (int)(noisiness * 100);
