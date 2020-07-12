@@ -46,7 +46,15 @@ public class HUDController : MonoBehaviour
             obligationLevel.level / (houseController.GetRoomGaugeMaximum() * obligationLevel.activityCount) * maxGaugeFillScale ,
             1
         );
+
+        if ((int)noisiness == 1)
+            EndGame();
     }
 
     public int GetNoisiness() => (int)(noisiness * 100);
+
+    private void EndGame()
+    {
+        Debug.Log("Game Over");
+    }
 }
