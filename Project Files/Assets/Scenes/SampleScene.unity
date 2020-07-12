@@ -526,7 +526,7 @@ MonoBehaviour:
   activitiesHandler: {fileID: 1132014190}
   widthInWorldUnits: 24
   heightInWorldUnits: 48
-  room: 3
+  room: 2
   engagementPosition: {x: 0.72, y: -1.32}
   type: 3
   variety: 1
@@ -1133,7 +1133,7 @@ MonoBehaviour:
   activitiesHandler: {fileID: 1132014190}
   widthInWorldUnits: 0.32
   heightInWorldUnits: 0.48
-  room: 2
+  room: 3
   engagementPosition: {x: -2.5, y: -0.96}
   type: 1
   variety: 1

@@ -9,8 +9,8 @@ public class HouseController : MonoBehaviour
     public enum Room {
         TOP_LEFT,
         TOP_RIGHT,
-        BOTTOM_LEFT,
-        BOTTOM_RIGHT
+        BOTTOM_RIGHT,
+        BOTTOM_LEFT
     }
 
     public class RoomStat {
@@ -78,7 +78,9 @@ public class HouseController : MonoBehaviour
                 foreach (RoomStat roomStat in roomStatsList)
                 {
                     if (Time.time > roomStartTimes[i])
-                        roomStat.IncreaseValue(gaugeMaximum, gaugeIncreaseRate); 
+                    {
+                    Debug.Log(i + " | " + (Room)i);
+                        roomStat.IncreaseValue(gaugeMaximum, gaugeIncreaseRate); }
 
                     if (roomStat.value >= gaugeMaximum * ((float)gaugeWarningPercentage/100))
                         InitiateActivityWarning((Room)i, roomStat.variety);
@@ -121,10 +123,12 @@ public class HouseController : MonoBehaviour
         foreach (Room room in Enum.GetValues(typeof(Room)))
         {
             List<RoomStat> roomActivityStats = roomStats.GetDictValue(room);
-            activityCount += roomActivityStats.Count;
             foreach (RoomStat stat in roomActivityStats)
                 if (stat.variety == statVariety)
+                {
+                    activityCount += roomActivityStats.Count;
                     total += stat.value;
+                }
         }
         return new StatLevel(statVariety, total, activityCount);
     }
