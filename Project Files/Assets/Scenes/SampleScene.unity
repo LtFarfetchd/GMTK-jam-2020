@@ -479,13 +479,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b86e75172d8644cab81a2a20692feec9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activitiesHandler: {fileID: 0}
   houseWidth: 6.4
   roomStartTimes:
   - 5
   - 10
   - 12.5
   - 7.5
+  gaugeMaximum: 20
   gaugeIncreaseRate: 2
+  gaugeIncreaseAcceleration: 0.0001
+  gaugeWarningPercentage: 50
 --- !u!1 &2095760617
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +526,7 @@ MonoBehaviour:
   room: 3
   engagementPosition: {x: 2.8, y: -2.32}
   type: 0
+  variety: 0
 --- !u!212 &2095760619
 SpriteRenderer:
   m_ObjectHideFlags: 0
