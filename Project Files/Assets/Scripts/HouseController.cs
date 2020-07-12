@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System;
 using UnityEngine;
 using ActivityVariety = ActivitiesHandlerController.ActivityVariety;
+using StatLevel = HUDController.StatLevel;
 
 public class HouseController : MonoBehaviour
 {
@@ -93,6 +95,7 @@ public class HouseController : MonoBehaviour
         activity.ToggleWarning(true);
     }
 
+    public float GetRoomGaugeMaximum() => gaugeMaximum;
     public Vector2 GetRoomPosition(Room roomName) => roomPositions.GetDictValue(roomName);
 
     public List<Room> GetPathBetweenRooms(Room origin, Room target)
@@ -109,5 +112,20 @@ public class HouseController : MonoBehaviour
             path.Add(target);
         } 
         return path;
+    }
+
+    public StatLevel GetTotalStatLevel(ActivityVariety statVariety)
+    {
+        float total = 0f;
+        int activityCount = 0;
+        foreach (Room room in Enum.GetValues(typeof(Room)))
+        {
+            List<RoomStat> roomActivityStats = roomStats.GetDictValue(room);
+            activityCount += roomActivityStats.Count;
+            foreach (RoomStat stat in roomActivityStats)
+                if (stat.variety == statVariety)
+                    total += stat.value;
+        }
+        return new StatLevel(statVariety, total, activityCount);
     }
 }
