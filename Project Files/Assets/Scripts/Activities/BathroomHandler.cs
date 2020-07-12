@@ -9,6 +9,8 @@ public class BathroomHandler : MonoBehaviour
     public GameObject house;
     public ActivityVariety activityVariety = ActivityVariety.PROBLEM;
     public Room room = Room.BOTTOM_RIGHT;
+    public AudioClip knockClip, victoryClip;
+    public AudioSource knocker;
     public int necessaryKnocks;
     public int allowedTime;
     public int endFrames = 75;
@@ -71,6 +73,8 @@ public class BathroomHandler : MonoBehaviour
                 endTime = timeElapsed;
                 victorious = true;
                 victoryRenderer.enabled = true;
+                knocker.clip = victoryClip;
+                knocker.Play();
             }
 
             if (endTime == - 1 && timeElapsed > allowedTime)
@@ -90,6 +94,7 @@ public class BathroomHandler : MonoBehaviour
         handWindupRenderer.enabled = false;
         knockTimer = 0;
         knockRenderer.enabled = true;
+        knocker.Play();
     }
 
     private void WindUp()
@@ -102,6 +107,7 @@ public class BathroomHandler : MonoBehaviour
 
     private void SetUp()
     {
+        knocker.clip = knockClip;
         introRenderer.enabled = true;
         victoryRenderer.enabled = false;
         defeatRenderer.enabled = false;
