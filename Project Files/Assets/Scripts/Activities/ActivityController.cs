@@ -7,8 +7,8 @@ using Room = HouseController.Room;
 public class ActivityController : MonoBehaviour
 {
     public GameObject activitiesHandler;
-    public Vector2 boundsTopLeft;
-    public Vector2 boundsBottomRight;
+    public float widthInWorldUnits;
+    public float heightInWorldUnits;
     public Room room;
     public Vector2 engagementPosition;
     public ActivityType type;
@@ -21,7 +21,10 @@ public class ActivityController : MonoBehaviour
     void Start()
     {
         ahc = (ActivitiesHandlerController)activitiesHandler.GetComponent<MonoBehaviour>();
-        ahc.ReportBounds(this, type, new ActivityBounds(boundsTopLeft, boundsBottomRight));
+        ahc.ReportBounds(this, type, new ActivityBounds(
+            new Vector2(transform.position.x - widthInWorldUnits/2, transform.position.y + heightInWorldUnits/2)
+            , new Vector2(transform.position.x + widthInWorldUnits/2, transform.position.y - heightInWorldUnits/2)
+        ));
         warning.transform.position = transform.position;
         warning.SetActive(false);
     }

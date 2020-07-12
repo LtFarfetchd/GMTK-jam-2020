@@ -14,7 +14,9 @@ public class ActivitiesHandlerController : MonoBehaviour
     public enum ActivityType 
     {
         BEER_PONG,
-        CHINA_CABINET
+        CHINA_CABINET,
+        KEG_STAND,
+        BATHROOM
     }
 
     public struct ActivityBounds
