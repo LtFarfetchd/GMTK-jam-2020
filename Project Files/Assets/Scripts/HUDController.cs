@@ -14,6 +14,10 @@ public class HUDController : MonoBehaviour
         public int activityCount;
     }
     public GameObject house;
+    public GameObject noiseGaugeFill;
+    public GameObject partyGaugeFill;
+    public int maxGaugeFillScale = 242;
+
     private HouseController houseController;
     public float noisiness = 0f;
     
