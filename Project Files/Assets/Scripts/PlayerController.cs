@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public GameObject activitiesHandler;
     public float moveTime;
     public float engageTime;
+    public GameObject miniGameScreen;
     private enum State
     {
         MOVING,
@@ -129,12 +130,13 @@ public class PlayerController : MonoBehaviour
 
         if (state == State.ENGAGED)
         {
+            miniGameScreen.transform.position = new Vector3(sceneCamera.transform.position.x, sceneCamera.transform.position.y, this.transform.position.z);
             // placeholder disengagement trigger
             if (Input.GetMouseButtonDown(0))
             {
+                miniGameScreen.transform.position = new Vector3(0, 6, -2);
                 InitiateDisengagement();
-            }
-
+            }            
             // handle minigame here
         }
     }
