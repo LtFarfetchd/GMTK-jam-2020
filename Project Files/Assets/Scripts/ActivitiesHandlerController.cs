@@ -5,11 +5,18 @@ using Room = HouseController.Room;
 
 public class ActivitiesHandlerController : MonoBehaviour
 {
+    public enum ActivityVariety 
+    {
+        OBLIGATION,
+        PROBLEM
+    }
+
     public enum ActivityType 
     {
         BEER_PONG,
         CHINA_CABINET
     }
+
     public struct ActivityBounds
     {
         public ActivityBounds(Vector2 topLeft, Vector2 bottomRight)
@@ -41,4 +48,14 @@ public class ActivitiesHandlerController : MonoBehaviour
         ).FirstOrDefault();
         return activities.GetDictValue(activityLocations.GetDictValue(candidateBounds));
     } 
+
+    public ActivityController SearchByVariety(Room targetRoom, ActivityVariety targetVariety)
+    {
+        ActivityType candidateType = activities.Keys.Where(
+            type => 
+                activities.GetDictValue(type).GetVariety() == targetVariety
+                && activities.GetDictValue(type).GetRoom() == targetRoom
+        ).FirstOrDefault();
+        return activities.GetDictValue(candidateType);
+    }
 }
