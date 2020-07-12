@@ -456,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b128615a60bce5f46b8c021b1df837f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundMusic: {fileID: 0}
+  backgroundMusic: {fileID: 8300000, guid: 191e13ad392c4b749a3133470213a598, type: 3}
   baselineChatter: {fileID: 0}
   maxChatter: {fileID: 0}
   beerClink: {fileID: 0}
@@ -663,7 +663,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 191e13ad392c4b749a3133470213a598, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
