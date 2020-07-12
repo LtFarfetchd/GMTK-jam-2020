@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     private State state;
     private Rigidbody2D rb;
     private float timeElapsed;
+    private Animator animator;
+    private string movementDirection;
 
     void Start()
     {
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
         houseController = (HouseController)house.GetComponent<MonoBehaviour>();
         cameraZoomController = (CameraZoomController)sceneCamera.GetComponent<MonoBehaviour>();
         ahc = (ActivitiesHandlerController)activitiesHandler.GetComponent<MonoBehaviour>();
+        animator = GetComponent<Animator>();
     }
 
     private void InitiateMove(Room targetRoom)
@@ -44,6 +47,10 @@ public class PlayerController : MonoBehaviour
             return;
         timeElapsed = 0f;
         currentPath = houseController.GetPathBetweenRooms(currentRoom, targetRoom);
+        movementDirection = GetMovementDirection(
+            houseController.GetRoomPosition(currentRoom), houseController.GetRoomPosition(currentPath[0])
+        );
+        animator.SetBool(movementDirection, true);
         state = State.MOVING;
     }
 
@@ -105,9 +112,20 @@ public class PlayerController : MonoBehaviour
             {
                 currentRoom = currentPath[targetIndex];
                 if (targetIndex == currentPath.Count - 1)
+                {
                     state = State.STATIONARY;
+                    animator.SetBool(movementDirection, false);
+                }
                 else
+                {
                     timeElapsed = 0f;
+                    animator.SetBool(movementDirection, false);
+                    movementDirection = GetMovementDirection(
+                        houseController.GetRoomPosition(currentRoom), houseController.GetRoomPosition(currentPath[1])
+                    );
+                    animator.SetBool(movementDirection, true);
+                }
+                    
             }
         }
 
@@ -141,5 +159,18 @@ public class PlayerController : MonoBehaviour
                 );
             }
         }
+    }
+
+    private string GetMovementDirection(Vector2 currentPos, Vector2 targetPos)
+    {   
+        if (currentPos.x < targetPos.x)
+            return "MovingRight";
+        if (currentPos.x > targetPos.x)
+            return "MovingLeft";
+        if (currentPos.y < targetPos.y)
+            return "MovingUp";
+        if (currentPos.y > targetPos.y)
+            return "MovingDown";
+        return null;
     }
 }
