@@ -54,9 +54,11 @@ public class PlayerController : MonoBehaviour
         state = State.ENGAGING;
     }
 
-    private void InitiateDisengagement()
+    public void InitiateDisengagement()
     {
         timeElapsed = 0f;
+        ahc.GetActivityHandlerObject(targetActivity.type).SetActive(false);
+        miniGameScreen.transform.position = new Vector3(0, 6, -2);
         state = State.DISENGAGING;
     }
 
@@ -130,14 +132,14 @@ public class PlayerController : MonoBehaviour
 
         if (state == State.ENGAGED)
         {
-            miniGameScreen.transform.position = new Vector3(sceneCamera.transform.position.x, sceneCamera.transform.position.y, this.transform.position.z);
-            // placeholder disengagement trigger
-            if (Input.GetMouseButtonDown(0))
+            GameObject minigameHandler = ahc.GetActivityHandlerObject(targetActivity.type);
+            if (!minigameHandler.activeSelf)
             {
-                miniGameScreen.transform.position = new Vector3(0, 6, -2);
-                InitiateDisengagement();
-            }            
-            // handle minigame here
+                minigameHandler.SetActive(true);            
+                miniGameScreen.transform.position = new Vector3(
+                    sceneCamera.transform.position.x, sceneCamera.transform.position.y, this.transform.position.z
+                );
+            }
         }
     }
 }

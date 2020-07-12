@@ -15,6 +15,7 @@ public class ActivityController : MonoBehaviour
     public ActivityVariety variety;
     public GameObject warning;
 
+    private GameObject minigameHandlerObject;
     private ActivitiesHandlerController ahc;
     private bool hasWarning = false;
     
@@ -25,8 +26,15 @@ public class ActivityController : MonoBehaviour
             new Vector2(transform.position.x - widthInWorldUnits/2, transform.position.y + heightInWorldUnits/2)
             , new Vector2(transform.position.x + widthInWorldUnits/2, transform.position.y - heightInWorldUnits/2)
         ));
+        
         warning.transform.position = transform.position;
         warning.SetActive(false);
+
+        minigameHandlerObject = ahc.GetActivityHandlerObject(type);
+        minigameHandlerObject.transform.position = new Vector3(
+            engagementPosition.x, engagementPosition.y, minigameHandlerObject.transform.position.z
+        );
+        minigameHandlerObject.SetActive(false);
     }
 
     public Vector2 GetEngagementPosition() => engagementPosition;
