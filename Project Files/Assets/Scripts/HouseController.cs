@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine;
 using ActivityVariety = ActivitiesHandlerController.ActivityVariety;
 using StatLevel = HUDController.StatLevel;
@@ -129,5 +130,10 @@ public class HouseController : MonoBehaviour
                 }
         }
         return new StatLevel(statVariety, total, activityCount);
+    }
+
+    public void HealStat(ActivityVariety variety, Room room)
+    {
+        roomStats.GetDictValue(room).Where(roomStat => roomStat.variety == variety).First().value = 0;
     }
 }
