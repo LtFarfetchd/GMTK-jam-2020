@@ -9,8 +9,8 @@ public class BeerPongHandler : MonoBehaviour
     public Room room = Room.TOP_LEFT;
     public Sprite handBall, handNoBall;
     public float handStartSpeed = 0.005f, handAcceleration = 0.0001f, 
-        ballStartSpeed = 0.1f, ballAcceleration = 0.0001f, ballCurve = 0.0025f;
-    public float victoryToleranceDistance = 1f;
+        ballStartSpeed = 0.05f, ballAcceleration = 0.00075f, ballCurve = 0.0035f;
+    public float victoryToleranceDistance = 0.25f;
     private PlayerController playerController;
     private HouseController houseController;
     private Vector3 handStartPos;
