@@ -16,7 +16,7 @@ public class BeerPongHandler : MonoBehaviour
     private Vector3 handStartPos;
     private float handSpeed, handMaximumX, ballSpeed, ballMaximumY;
     private float winRangeMinX, winRangeMaxX;
-    private bool thrown = false, hasWon = false, isInitialised = false, ballResorted = false;;
+    private bool thrown = false, hasWon = false, isInitialised = false, ballResorted = false;
     private int ballStartSortingOrder;
 
     void Start()
@@ -78,10 +78,12 @@ public class BeerPongHandler : MonoBehaviour
             hasWon = (handX >= winRangeMinX && handX <= winRangeMaxX);
         }
         
-        handSpeed += handAcceleration;
+        handSpeed += Mathf.Sign(handSpeed) * handAcceleration;
         float targetX = hand.transform.position.x + handSpeed;
-        if (targetX < handMaximumX)
+        if (handStartPos.x < targetX && targetX < handMaximumX)
             hand.transform.position = new Vector3(targetX, hand.transform.position.y, hand.transform.position.z);
+        else
+            handSpeed *= -1;
     }
 
     private void MoveBall(bool hasWon)
