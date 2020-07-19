@@ -10,7 +10,8 @@ public class ActivityController : MonoBehaviour
     public float widthInWorldUnits;
     public float heightInWorldUnits;
     public Room room;
-    public Vector2 engagementPosition;
+    [DraggablePoint]
+    public Vector3 engagementPosition;
     public ActivityType type;
     public ActivityVariety variety;
     public GameObject warning;

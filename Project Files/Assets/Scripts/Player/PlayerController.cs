@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private float timeElapsed;
     private Animator animator;
     private string movementDirection;
+    private bool isInitialised = false;
 
     void Start()
     {
@@ -69,7 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         timeElapsed = 0f;
         ahc.GetActivityHandlerObject(targetActivity.type).SetActive(false);
-        miniGameScreen.transform.position = new Vector3(0, 6, miniGameScreen.transform.position.z);
+        miniGameScreen.SetActive(false);
         movementDirection = GetMovementDirection(
             targetActivity.engagementPosition, houseController.GetRoomPosition(currentRoom)
         );
@@ -79,6 +80,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (!isInitialised)
+        {
+            transform.position = houseController.GetRoomPosition(currentRoom);
+            isInitialised = true;
+        }
+
         if (state == State.STATIONARY)
         {
             if (Input.GetMouseButtonDown(0))
@@ -113,6 +120,7 @@ public class PlayerController : MonoBehaviour
             timeElapsed += Time.deltaTime;
             int targetIndex = !currentPath.Contains(currentRoom) ? 0 : 1;
             Vector2 targetPos = houseController.GetRoomPosition(currentPath[targetIndex]);
+            Debug.Log(Vector2.Lerp(houseController.GetRoomPosition(currentRoom), targetPos, timeElapsed/moveTime));
 
             rb.MovePosition(Vector2.Lerp(houseController.GetRoomPosition(currentRoom), targetPos, timeElapsed/moveTime));
 
@@ -162,7 +170,8 @@ public class PlayerController : MonoBehaviour
             GameObject minigameHandler = ahc.GetActivityHandlerObject(targetActivity.type);
             if (!minigameHandler.activeSelf)
             {
-                minigameHandler.SetActive(true);            
+                minigameHandler.SetActive(true);  
+                miniGameScreen.SetActive(true);          
                 miniGameScreen.transform.position = new Vector3(
                     sceneCamera.transform.position.x, sceneCamera.transform.position.y, miniGameScreen.transform.position.z
                 );
