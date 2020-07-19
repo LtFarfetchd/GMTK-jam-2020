@@ -414,8 +414,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 849632677
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7f36550052ec245d48a97366aacdd118, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -436,7 +436,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433029406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -27.92, y: 16.82, z: -9}
+  m_LocalPosition: {x: 0, y: 16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -638,8 +638,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activitiesHandler: {fileID: 1132014190}
-  widthInWorldUnits: 0.24
-  heightInWorldUnits: 0.48
+  widthInWorldUnits: 1
+  heightInWorldUnits: 1.2
   room: 2
   engagementPosition: {x: 3, y: -3.2, z: 0}
   type: 3
@@ -1093,6 +1093,11 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1319063295256229172, guid: 6793cb650674c45e2a5e7cca397ddc9d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1319063295281447566, guid: 6793cb650674c45e2a5e7cca397ddc9d,
         type: 3}
       propertyPath: m_SortingLayerID
@@ -1103,6 +1108,11 @@ PrefabInstance:
       propertyPath: m_SortingLayer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1319063295281447566, guid: 6793cb650674c45e2a5e7cca397ddc9d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1319063295634476420, guid: 6793cb650674c45e2a5e7cca397ddc9d,
         type: 3}
       propertyPath: m_SortingLayerID
@@ -1112,6 +1122,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319063295634476420, guid: 6793cb650674c45e2a5e7cca397ddc9d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1319063295717295839, guid: 6793cb650674c45e2a5e7cca397ddc9d,
         type: 3}
@@ -1142,16 +1157,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SortingLayer
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319063296366243972, guid: 6793cb650674c45e2a5e7cca397ddc9d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1319063296632222468, guid: 6793cb650674c45e2a5e7cca397ddc9d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.93
+      value: 27.87
       objectReference: {fileID: 0}
     - target: {fileID: 1319063296632222468, guid: 6793cb650674c45e2a5e7cca397ddc9d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.37
+      value: -5.29
       objectReference: {fileID: 0}
     - target: {fileID: 1319063296632222468, guid: 6793cb650674c45e2a5e7cca397ddc9d,
         type: 3}
@@ -1563,8 +1583,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activitiesHandler: {fileID: 1132014190}
-  widthInWorldUnits: 0.32
-  heightInWorldUnits: 0.48
+  widthInWorldUnits: 2
+  heightInWorldUnits: 2.8
   room: 3
   engagementPosition: {x: -9.8, y: -1.15, z: 0}
   type: 1
@@ -2030,8 +2050,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activitiesHandler: {fileID: 1132014190}
-  widthInWorldUnits: 0.16
-  heightInWorldUnits: 0.24
+  widthInWorldUnits: 1.6
+  heightInWorldUnits: 1
   room: 1
   engagementPosition: {x: 5, y: 6.511848, z: 0}
   type: 2
@@ -2076,7 +2096,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788734272}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43285573, y: 0.033806354, z: -2}
+  m_LocalPosition: {x: -29.08, y: -7.05, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2957,7 +2977,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999973062}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.43285573, y: 0.033806354, z: -2}
+  m_LocalPosition: {x: 26.79, y: 4.63, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3074,8 +3094,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activitiesHandler: {fileID: 1132014190}
-  widthInWorldUnits: 0.5
-  heightInWorldUnits: 0.75
+  widthInWorldUnits: 2
+  heightInWorldUnits: 2.4
   room: 0
   engagementPosition: {x: -9, y: 2.2, z: 0}
   type: 0
@@ -3089,7 +3109,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2095760617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9, y: 3.87, z: -1}
+  m_LocalPosition: {x: -9, y: 3.6, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1969540011}
