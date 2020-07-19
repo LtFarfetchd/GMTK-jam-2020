@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         timeElapsed = 0f;
         ahc.GetActivityHandlerObject(targetActivity.type).SetActive(false);
-        miniGameScreen.transform.position = new Vector3(0, 6, miniGameScreen.transform.position.z);
+        miniGameScreen.SetActive(false);
         movementDirection = GetMovementDirection(
             targetActivity.engagementPosition, houseController.GetRoomPosition(currentRoom)
         );
@@ -170,7 +170,8 @@ public class PlayerController : MonoBehaviour
             GameObject minigameHandler = ahc.GetActivityHandlerObject(targetActivity.type);
             if (!minigameHandler.activeSelf)
             {
-                minigameHandler.SetActive(true);            
+                minigameHandler.SetActive(true);  
+                miniGameScreen.SetActive(true);          
                 miniGameScreen.transform.position = new Vector3(
                     sceneCamera.transform.position.x, sceneCamera.transform.position.y, miniGameScreen.transform.position.z
                 );
