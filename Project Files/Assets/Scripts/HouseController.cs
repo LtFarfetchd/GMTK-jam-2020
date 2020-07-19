@@ -32,7 +32,7 @@ public class HouseController : MonoBehaviour
     }
 
     public GameObject activitiesHandler;
-    public float houseWidth;
+    public float houseWidth, houseHeight;
     public float[] roomStartTimes = new float[4];
     public float gaugeMaximum = 20f;
     public float gaugeIncreaseRate = 2f;
@@ -43,18 +43,19 @@ public class HouseController : MonoBehaviour
     private Dictionary<Room, List<RoomStat>> roomStats = new Dictionary<Room, List<RoomStat>>();
     private LinkedList<Room> roomPaths = new LinkedList<Room>();
     private ActivitiesHandlerController ahc;
-    private float roomOffset;
+    private float roomHOffset, roomYOffset;
     private int roomValueSecondsBetweenIncreases = 1;
 
     void Start()
     {
         ahc = (ActivitiesHandlerController)(activitiesHandler.GetComponent<MonoBehaviour>());
-        roomOffset = houseWidth / 4;
+        roomHOffset = houseWidth / 4;
+        roomYOffset = houseHeight / 4;
 
-        roomPositions.ChainAdd(Room.TOP_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y + roomOffset))
-            .ChainAdd(Room.TOP_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y + roomOffset))
-            .ChainAdd(Room.BOTTOM_LEFT, new Vector2(transform.position.x - roomOffset, transform.position.y - roomOffset))
-            .ChainAdd(Room.BOTTOM_RIGHT, new Vector2(transform.position.x + roomOffset, transform.position.y - roomOffset));
+        roomPositions.ChainAdd(Room.TOP_LEFT, new Vector2(transform.position.x - roomHOffset, transform.position.y + roomYOffset))
+            .ChainAdd(Room.TOP_RIGHT, new Vector2(transform.position.x + roomHOffset, transform.position.y + roomYOffset))
+            .ChainAdd(Room.BOTTOM_LEFT, new Vector2(transform.position.x - roomHOffset, transform.position.y - roomYOffset))
+            .ChainAdd(Room.BOTTOM_RIGHT, new Vector2(transform.position.x + roomHOffset, transform.position.y - roomYOffset));
 
         roomPaths
             .ChainAddLast(Room.TOP_LEFT)
