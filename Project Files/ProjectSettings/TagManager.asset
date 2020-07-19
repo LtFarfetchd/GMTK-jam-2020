@@ -41,3 +41,21 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: houseBack
+    uniqueID: 2377337245
+    locked: 0
+  - name: objects
+    uniqueID: 304837823
+    locked: 0
+  - name: warnings
+    uniqueID: 3773057209
+    locked: 0
+  - name: houseFront
+    uniqueID: 1206133367
+    locked: 0
+  - name: minigame
+    uniqueID: 2899630465
+    locked: 0
+  - name: hud
+    uniqueID: 849632677
+    locked: 0
