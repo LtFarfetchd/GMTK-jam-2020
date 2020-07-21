@@ -2,8 +2,7 @@
 
 public class CameraZoomController : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject house;
+    public GameObject player, house, hud;
     public Camera thisCamera;
     public float targetSize;
 
